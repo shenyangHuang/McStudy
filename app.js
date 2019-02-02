@@ -1,17 +1,19 @@
 var express = require("express");
 var app = express();
 
+app.use(express.static("public"));
+app.set("view engine", "ejs");
 //order of routes matters, always put important route first
 // "/" => "Hi there"
 app.get("/", function(req, res){
-	res.render("home.ejs");
+	res.render("home");
 });
 
 //pattern match page
 app.get("/lib/:libName", function(req, res){
 	var libName = req.params.libName;
 
-	res.render("lib.ejs", {libName: libName});
+	res.render("lib", {libName: libName});
 });
 
 
