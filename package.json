@@ -1,0 +1,19 @@
+{
+  "name": "mcstudy",
+  "version": "1.0.0",
+  "description": "Find your purfect study buddy at mcgill",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/shenyangHuang/McStudy.git"
+  },
+  "author": "Andy Huang",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/shenyangHuang/McStudy/issues"
+  },
+  "homepage": "https://github.com/shenyangHuang/McStudy#readme"
+}
