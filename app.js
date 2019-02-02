@@ -4,13 +4,14 @@ var app = express();
 //order of routes matters, always put important route first
 // "/" => "Hi there"
 app.get("/", function(req, res){
-	res.send("Welcome to McStudy!");
+	res.render("home.ejs");
 });
 
 //pattern match page
 app.get("/lib/:libName", function(req, res){
 	var libName = req.params.libName;
-	res.send("Find your friends in " + libName);
+
+	res.render("lib.ejs", {libName: libName});
 });
 
 

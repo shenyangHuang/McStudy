@@ -15,5 +15,9 @@
   "bugs": {
     "url": "https://github.com/shenyangHuang/McStudy/issues"
   },
-  "homepage": "https://github.com/shenyangHuang/McStudy#readme"
+  "homepage": "https://github.com/shenyangHuang/McStudy#readme",
+  "dependencies": {
+    "ejs": "^2.6.1",
+    "express": "^4.16.4"
+  }
 }
