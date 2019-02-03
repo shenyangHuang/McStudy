@@ -9,7 +9,6 @@
     <link rel="stylesheet" type="text/css" href="app.css">
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
   </head>
-  <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
   <body>
 
    <nav class="navbar navbar-default navbar-fixed-top">
@@ -32,7 +31,7 @@
         <ul class="nav navbar-nav navbar-right">
           <li><a href="#" role="button" onclick="document.getElementById('id01').style.display='block'" style="width:auto;">Signup <i class="fa fa-user-plus"></i></a></li>
           	<div id="id01" class="modal">
-					<span onclick="document.getElementById('id01').style.display='none'" class="close" title="Close Modal">&times;</span>
+					  <span onclick="document.getElementById('id01').style.display='none'" class="close" title="Close Modal">&times;</span>
 					  <form class="modal-content" action="/action_page.php">
 					    <div class="container">
 					      <h1>Sign Up</h1>
@@ -61,14 +60,14 @@
 					  </form>
 					</div>
 
-          <li><a href="#about" role="button" onclick="document.getElementById('id01').style.display='block'" style="width:auto;">Login <i class="fa fa-user"></i></a></li>
-            <div id="id01" class="modal">
+          <li><a href="#about" role="button" onclick="document.getElementById('id02').style.display='block'" style="width:auto;">Login <i class="fa fa-user"></i></a></li>
+            <div id="id02" class="modal">
                 <form class="modal-content animate" action="/action_page.php">
-                  <div class="imgcontainer">
+                  <!-- <div class="imgcontainer">
                     <span onclick="document.getElementById('id01').style.display='none'" class="close" title="Close Modal">&times;</span>
                     <img src="img_avatar2.png" alt="Avatar" class="avatar">
-                  </div>
-
+                  </div> -->
+                  <h1>Login</h1>
                   <div class="container">
                     <label for="uname"><b>Username</b></label>
                     <input type="text" placeholder="Enter Username" name="uname" required>
@@ -83,7 +82,7 @@
                   </div>
 
                   <div class="container" style="background-color:#f1f1f1">
-                    <button type="button" onclick="document.getElementById('id01').style.display='none'" class="cancelbtn">Cancel</button>
+                    <button type="button" onclick="document.getElementById('id02').style.display='none'" class="cancelbtn">Cancel</button>
                     <span class="psw">Forgot <a href="#">password?</a></span>
                   </div>
                 </form>
@@ -113,7 +112,7 @@
                 <h3>Find your study buddies</h3>
                 <hr>
                 <!-- <button class="btn btn-default btn-lg" button type="button" onclick="popup here"><i class="fa fa-paw fa-fw"></i> Get Started!</button> -->
-                <button type="button" class="btn btn-default btn-lg" onclick="alert('Hello world!')">Click Me!</button>
+                <button type="button" class="btn btn-default btn-lg" onclick="alert('Hello world!')">Get Started!</button>
             </div>
         </div>
     </div>
@@ -122,26 +121,72 @@
    <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.4.js"></script>
    <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 
+  <script>
+  var frdlist = document.getElementById('friendslist');
+  var btn = document.getElementById("mybtn");
+  var span = document.getElementsByClassName("close")[0];
+  btn.onclick = function() {
+    frdlist.style.display = "block";
+  }
+  span.onclick = function() {
+    frdlist.style.display = "none";
+  }
+  window.onclick = function(event) {
+    if (event.target == frdlist) {
+      frdlist.style.display = "none";
+    }
+  }
+  </script>
+  
+  <!-- Trigger/Open The Modal -->
+ <button type="button" id="myBtn">Your Friends</button>
 
-   <!-- <div class="container">
-   	<div class="row">
-
-   	</div>
-   </div> -->
-
-   <div class="container">
-   	<ul class="w3-ul w3-card-4">
-	   	<li class="w3-bar">
-			  <span onclick="this.parentElement.style.display='none'" 
-			  class="w3-bar-item w3-button w3-xlarge w3-right">&times;</span>
-			  <img src="img_avatar2.png" class="w3-bar-item w3-circle" style="width:85px">
-			  <div class="w3-bar-item">
-			    <span class="w3-small">Mike</span><br>
-			    <span>Web Designer</span>
-			  </div>
-			</li>
-		</ul>
+<div id="myModal" class="modal">
+     <div id="friendslist" class="frdlist">
+      <span class="close">&times;</span>
+    <ul class="w3-ul w3-card-4">
+      <li class="w3-bar">
+        <div class="frdlist-content">
+        <img src="Irene.jpg" class="w3-bar-item w3-circle" style="width:80px">
+        <div class="w3-bar-item">
+          <span class="w3-medium">Irene</span><br>
+          <span>Singer</span>
+        </div>    
+      </div>
+      </li>
+    </ul>
+    
    </div>
+
+</div>
+
+<script>
+// Get the modal
+var modal = document.getElementById('myModal');
+
+// Get the button that opens the modal
+var btn = document.getElementById("myBtn");
+
+// Get the <span> element that closes the modal
+var span = document.getElementsByClassName("close")[0];
+
+// When the user clicks the button, open the modal 
+btn.onclick = function() {
+  modal.style.display = "block";
+}
+
+// When the user clicks on <span> (x), close the modal
+span.onclick = function() {
+  modal.style.display = "none";
+}
+
+// When the user clicks anywhere outside of the modal, close it
+window.onclick = function(event) {
+  if (event.target == modal) {
+    modal.style.display = "none";
+  }
+}
+</script>
 
   </body>
   </html>
