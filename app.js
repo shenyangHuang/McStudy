@@ -11,11 +11,26 @@ mongoose.connect('mongodb://Andy:Mchacks2019@ds119755.mlab.com:19755/mcstudy');
 var profileSchema = new mongoose.Schema({
 	UID: Number,
 	Name: String,
-	age: Number,
-	friends: Array,
-})
+	email: String,
+	year: String,
+	classes: Array,
+	friends: Array
+});
 
 var Profile = mongoose.model("Profile", profileSchema);
+
+//defining schema for a class
+var courseSchema = new mongoose.Schema({
+	CID: String,
+	students: Array
+});
+
+var Course = mongoose.model("Course", courseSchema);
+
+
+
+
+
 
 // var andy = new Profile({
 // 	UID: "1",
@@ -79,21 +94,67 @@ app.get("/", function(req, res){
 	res.render("home");
 });
 
-app.post("/addfriend", function(req, res){
-	var newFriend = req.body.newfriend;
-	friends.push(newFriend);
-	res.redirect("/friends");
+
+app.get("/signup", function(req, res){
+	//show all available classes 
+	Course.find({}, function(err, Allcourses){
+		if(err){
+			console.log("can't load classes");
+		} else {
+			res.render("signup", {courses:Allcourses});
+		}
+	})
 });
 
+app.post("/signup", function(req, res){
+	var UID = req.body.UID;
+	var Name = req.body.Name;
+	var email = req.body.email;
+	var year = req.body.year;
+	var classes = req.body.classes;
+	var friends = [];
+
+	var newUsr = {
+		UID: UID,
+		Name: Name,
+		email: email,
+		year: year,
+		classes: [classes],
+		friends: friends
+	};
+
+	Profile.create(newUsr, function(err, created){
+		if(err){
+			console.log(err);
+		} else {
+
+			var newCourse = {
+				CID: classes,
+				students: [Name]
+			}
+			//also post to Class
+			Course.create(newCourse);
+			res.redirect("/signup");
+		}
+	})
+});
+
+
+
+// app.post("/addfriend", function(req, res){
+// 	var newFriend = req.body.newfriend;
+// 	friends.push(newFriend);
+// 	res.redirect("/friends");
+// });
 
 app.get("/friends", function(req, res){
 	res.render("friends", {friends: friends});
 });
-//pattern match page
-app.get("/lib/:libName", function(req, res){
-	var libName = req.params.libName;
-	res.render("lib", {libName: libName});
-});
+// //pattern match page
+// app.get("/lib/:libName", function(req, res){
+// 	var libName = req.params.libName;
+// 	res.render("lib", {libName: libName});
+// });
 
 
 
