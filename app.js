@@ -17,50 +17,46 @@ var profileSchema = new mongoose.Schema({
 
 var Profile = mongoose.model("Profile", profileSchema);
 
-var andy = new Profile({
-	UID: "1",
-	Name: "Andy",
-	age: 20,
-	friends: ["Yunxi", "Dylan"]
-});
+// var andy = new Profile({
+// 	UID: "1",
+// 	Name: "Andy",
+// 	age: 20,
+// 	friends: ["Yunxi", "Dylan"]
+// });
 
-// andy.save(function(err, profile){
+// // andy.save(function(err, profile){
+// // 	if(err){
+// // 		console.log("Error Encountered!");
+// // 	} else {
+// // 		console.log("Saving profile to DB");
+// // 		console.log(profile);
+// // 	}
+// // });
+
+
+// //create function
+// Profile.create({
+// 	UID: "1",
+// 	Name: "Andy",
+// 	age: 20,
+// 	friends: ["Yunxi", "Dylan"]
+// }, function(err, profile){
 // 	if(err){
-// 		console.log("Error Encountered!");
+// 		console.log(err);
 // 	} else {
-// 		console.log("Saving profile to DB");
 // 		console.log(profile);
 // 	}
 // });
 
 
-//create function
-Profile.create({
-	UID: "1",
-	Name: "Andy",
-	age: 20,
-	friends: ["Yunxi", "Dylan"]
-}, function(err, profile){
-	if(err){
-		console.log(err);
-	} else {
-		console.log(profile);
-	}
-});
-
-
-//retrieve all info from database
-Profile.find({}, function(err, profiles){
-	if(err){
-		console.log(err);
-	} else {
-		console.log()
-	}
-})
-
-
-
-
+// //retrieve all info from database
+// Profile.find({}, function(err, profiles){
+// 	if(err){
+// 		console.log(err);
+// 	} else {
+// 		console.log()
+// 	}
+// })
 
 
 
