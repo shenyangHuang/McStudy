@@ -1,7 +1,17 @@
-var express = require("express");
-var bodyParser = require("body-parser");
-var mongoose = require("mongoose");
-var app = express();
+var express = require("express"),
+bodyParser = require("body-parser"),
+mongoose = require("mongoose"),
+methodOverride = require("method-override"),
+app = express();
+
+
+app.use(express.static("public"));
+app.use(bodyParser.urlencoded({extended: true}))
+app.use(methodOverride("_method"));
+
+
+app.set("view engine", "ejs");
+
 
 //db section
 //Hosted mongoose database
@@ -12,9 +22,9 @@ var profileSchema = new mongoose.Schema({
 	UID: Number,
 	Name: String,
 	email: String,
-	year: String,
-	classes: Array,
-	friends: Array
+	year: {type: String, default: "unspecified"},
+	classes: {type: Array, default: []},
+	friends: {type: Array, default: []}
 });
 
 var Profile = mongoose.model("Profile", profileSchema);
@@ -75,24 +85,80 @@ var Course = mongoose.model("Course", courseSchema);
 
 
 
+//RESTFUL Routes
 
-
-
-
-//routing section
-app.use(express.static("public"));
-app.use(bodyParser.urlencoded({extended: true}))
-
-app.set("view engine", "ejs");
 //order of routes matters, always put important route first
 // "/" => "Hi there"
 
-var friends = [];
-
-
+//RESTFUL Routes
 app.get("/", function(req, res){
 	res.render("home");
 });
+
+// INDEX Route
+app.get("/courses", function(req, res){
+
+	Course.find({}, function(err, Allcourses){
+		if(err){
+			console.log("can't load courses");
+		} else {
+			res.render("index", {courses: Allcourses});
+		}
+	});
+
+});
+
+// NEW Route
+app.get("/courses/new", function(req, res){
+	res.render("new");
+});
+
+// CREATE Route
+app.post("/courses", function(req, res){
+	//create a new course
+	Course.create(req.body.course, function(err, newCourse){
+		if(err){
+			res.render("new");
+		} else{
+			res.redirect("/courses");
+		}
+	});
+});
+
+// SHOW ROUTE
+app.get("/courses/:id", function(req, res){
+	Course.findById(req.params.id, function(err, foundCourse){
+		if(err){
+			res.redirect("/courses");
+		} else {
+			res.render("show", {course: foundCourse});
+		}
+	});
+});
+
+// EDIT Route
+app.get("/courses/:id/edit", function(req, res){
+	Course.findById(req.params.id, function(err, foundCourse){
+		if(err){
+			res.redirect("/courses");
+		} else {
+			res.render("edit", {course: foundCourse});
+		}
+	});
+});
+
+//Update Route
+app.put("/courses/:id", function(req, res){
+	Course.findByIdAndUpdate(req.params.id, req.body.course, function(err, updatedCourse){
+		if(err){
+			console.log(err);
+			res.redirect("/courses");
+		} else {
+			res.redirect("/courses/" + req.params.id);
+		}
+	});
+});
+
 
 
 app.get("/signup", function(req, res){
@@ -112,7 +178,6 @@ app.post("/signup", function(req, res){
 	var email = req.body.email;
 	var year = req.body.year;
 	var classes = req.body.classes;
-	var friends = [];
 
 	var newUsr = {
 		UID: UID,
@@ -120,7 +185,6 @@ app.post("/signup", function(req, res){
 		email: email,
 		year: year,
 		classes: [classes],
-		friends: friends
 	};
 
 	Profile.create(newUsr, function(err, created){

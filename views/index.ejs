@@ -1,0 +1,20 @@
+<% include partials/header %>
+
+<h1> This is index page </h1>
+
+<% courses.forEach(function(course){ %>
+	<div>
+		<h3><%=course.CID%></h3>
+		
+		<% course.students.forEach(function(student){ %>
+			<li><%= student %></li>
+		<% }); %>
+
+		<a href="/courses/<%= course._id %>">Show</a>
+	</div>
+<% }) %>
+
+<form action="/courses/new" method="GET">
+    <input type="submit" value="Add" />
+</form>
+<% include partials/footer %>

@@ -1,0 +1,15 @@
+<% include partials/header %>
+<div>
+	<h2><%= course.CID %></h2>
+	<% course.students.forEach(function(student){ %>
+		<li><%= student %></li>
+	<% }); %>
+</div>
+
+
+
+
+
+
+
+<% include partials/footer %>
